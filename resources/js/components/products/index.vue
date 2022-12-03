@@ -43,7 +43,7 @@
                     <button class="btn-icon btn-icon-success" @click="onEdit(item.id)">
                         <i class="fas fa-pencil-alt"></i>
                     </button>
-                    <button class="btn-icon btn-icon-danger" >
+                    <button class="btn-icon btn-icon-danger" @click="deleteProduct(item.id)">
                         <i class="far fa-trash-alt"></i>
                     </button>
                 </div>
@@ -83,5 +83,33 @@ const ourImage = (img) => {
 
 const onEdit = (id) => {
     router.push('product/edit/'+id)
+}
+
+const deleteProduct = (id) => {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You can't go back",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonText: 'No',
+        confirmButtonText: 'Yes delete it'
+    })
+    .then((result) => {
+        if(result.value){
+            axios.get('/api/delete-product/'+id)
+            .then(() => {
+                toast.fire(
+                    'Delete',
+                    'Product deleted',
+                    'success'
+                )
+                getProducts()
+            })
+            .catch(() => {
+                Swal.fire("failed", "Unexpected error", "warning")
+            })
+        }
+    })
 }
 </script>
