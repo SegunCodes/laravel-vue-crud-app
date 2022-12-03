@@ -40,7 +40,7 @@
                     {{ item.quantity }}
                 </p>     
                 <div>     
-                    <button class="btn-icon btn-icon-success" >
+                    <button class="btn-icon btn-icon-success" @click="onEdit(item.id)">
                         <i class="fas fa-pencil-alt"></i>
                     </button>
                     <button class="btn-icon btn-icon-danger" >
@@ -79,5 +79,9 @@ const getProducts = async () => {
 
 const ourImage = (img) => {
     return "/upload/"+img
+}
+
+const onEdit = (id) => {
+    router.push('product/edit/'+id)
 }
 </script>
